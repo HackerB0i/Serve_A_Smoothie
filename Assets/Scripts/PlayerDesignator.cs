@@ -11,14 +11,12 @@ public class PlayerDesignator : MonoBehaviour
     private InputAction _playerHorizontal;
     private InputAction _playerVertical;
     
-    private void Start()
+    private void Awake()
     {
         var pMap = inputActions.FindActionMap($"Player");
  
         _playerHorizontal = pMap.FindAction($"P1H");
-        _playerHorizontal.Enable();
         _playerVertical = pMap.FindAction($"P1V");
-        _playerVertical.Enable();
     }
 
     public List<InputAction> GetPlayerInputActions()

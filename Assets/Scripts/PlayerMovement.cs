@@ -22,8 +22,11 @@ public class PlayerMovement : MonoBehaviour
         _designator = GetComponent<PlayerDesignator>();
 
         var inputActions = _designator.GetPlayerInputActions();
+        print(inputActions);
         _horizontal = inputActions[0];
         _vertical = inputActions[1];
+        _horizontal.Enable();
+        _vertical.Enable();
     }
     
     private void FixedUpdate()
