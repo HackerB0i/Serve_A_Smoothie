@@ -1,25 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    
     [SerializeField] private float movementSpeed;
     
     private Rigidbody2D _rb;
-    private Vector2 _velocity;
+    private PlayerDesignator _designator;
     
-    private void Awake()
+    private Vector2 _velocity;
+
+    private InputAction _horizontal;
+    private InputAction _vertical;
+    
+    private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _designator = GetComponent<PlayerDesignator>();
+
+        var inputActions = _designator.GetPlayerInputActions();
+        _horizontal = inputActions[0];
+        _vertical = inputActions[1];
     }
     
-    void Update()
+    private void FixedUpdate()
     {
-        var HORIZONTAL = Input.GetAxis("Horizontal");   
-        var VERTICAL = Input.GetAxis("Vertical");
-
-        var velocity = new Vector2(HORIZONTAL, VERTICAL);
-        _rb.velocity = _velocity;
+        _velocity = new Vector2(_horizontal.ReadValue<float>(), _vertical.ReadValue<float>());
+        _velocity.Normalize();
+        _rb.velocity = _velocity * movementSpeed;
     }
 }
