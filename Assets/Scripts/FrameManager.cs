@@ -9,58 +9,88 @@ public class FrameManager : MonoBehaviour
     [SerializeField] private int selectedFrame;
     [SerializeField] private bool isInteracting;
     [SerializeField] private InputActionAsset inputActions;
+    [SerializeField] private GameObject menuObject;
+    
+    private List<InventoryFrame> m_Frames = new();
 
-    private List<InventoryFrame> frames = new();
+    private float m_ChangeCooldown;
+    private int m_InteractingPlayer = -1;
 
-    private float _changeCooldown;
-    private int _interactingPlayer = -1;
-
-    private InputActionMap pMap;
-    private InputAction _playerHorizontal;
+    private InputActionMap m_PMap;
+    private InputAction m_PlayerHorizontal;
+    
+    private PlayerHoldItem playerHoldItem;
 
     private void Start()
     {
-        frames = GetComponentsInChildren<InventoryFrame>().ToList();
-        pMap = inputActions.FindActionMap($"Player");
+        m_Frames = GetComponentsInChildren<InventoryFrame>().ToList();
+        m_PMap = inputActions.FindActionMap($"Player");
+        m_PMap.FindAction($"P1X").Enable();
     }
 
     private void Update()
     {
-        for (int i = 0; i < frames.Count; i++)
+        menuObject.SetActive(isInteracting);
+        for (int i = 0; i < m_Frames.Count; i++)
         {
             if (i == selectedFrame)
             {
-                frames[i].isSelected = true;
+                m_Frames[i].isSelected = true;
             }
             else
             {
-                frames[i].isSelected = false;
+                m_Frames[i].isSelected = false;
             }
         }
-        if (isInteracting && _playerHorizontal.IsPressed() && _changeCooldown <= 0)
+        if (isInteracting && m_PlayerHorizontal.IsPressed() && m_ChangeCooldown <= 0)
         {
-            selectedFrame += (int)_playerHorizontal.ReadValue<float>();
-            _changeCooldown = 0.1f;
+            selectedFrame += (int)m_PlayerHorizontal.ReadValue<float>();
+            if (selectedFrame >= m_Frames.Count)
+            {
+                selectedFrame = 0;
+            }
+            else if (selectedFrame < 0)
+            {
+                selectedFrame = m_Frames.Count - 1;
+            }
+            m_ChangeCooldown = 0.15f;
         }
-        _changeCooldown -= Time.deltaTime;
+
+        if (isInteracting && m_PMap.FindAction($"P{m_InteractingPlayer}X").triggered)
+        {
+            if (playerHoldItem.holdingFruitObject == Resources.Load("Fruits/Objects/Air"))
+            {
+                playerHoldItem.SetFruitObject(m_Frames[selectedFrame].currentFruitObject);
+                m_Frames[selectedFrame].currentFruitObject = Resources.Load<FruitObject>("Fruits/Objects/Air");
+            }
+            else
+            {
+                m_Frames[selectedFrame].currentFruitObject = playerHoldItem.holdingFruitObject;
+                playerHoldItem.SetFruitObject(Resources.Load<FruitObject>("Fruits/Objects/Air"));
+            }
+        }
+        m_ChangeCooldown -= Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name == "Player" && _interactingPlayer == -1)
+        if (collision.name == "Player" && m_InteractingPlayer == -1)
         {
             isInteracting = true;
-            _interactingPlayer = collision.GetComponent<PlayerDesignator>().GetPlayerNumber();
-            _playerHorizontal = pMap.FindAction($"P1H");
+            m_InteractingPlayer = collision.GetComponent<PlayerDesignator>().GetPlayerNumber();
+            m_PlayerHorizontal = m_PMap.FindAction($"P{m_InteractingPlayer}H");
+            collision.GetComponent<PlayerMovement>().ControlHorizontal(true);
+            playerHoldItem = collision.GetComponent<PlayerHoldItem>();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.name == "Player" && _interactingPlayer != -1)
+        if (collision.name == "Player" && m_InteractingPlayer != -1)
         {
             isInteracting = false;
-            _interactingPlayer = -1;
+            m_InteractingPlayer = -1;
+            collision.GetComponent<PlayerMovement>().ControlHorizontal(false);
         }
     }
 }

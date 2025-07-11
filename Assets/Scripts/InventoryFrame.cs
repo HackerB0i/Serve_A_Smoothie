@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InventoryFrame : MonoBehaviour
 {
-    [SerializeField] private FruitObject currentFruitObject;
+    public FruitObject currentFruitObject;
     [SerializeField] private Image holdingImage;
     [SerializeField] private Image selectedEffect;
     public bool isSelected = false;
