@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class FrameManager : MonoBehaviour
+public class CuttingBoard : MonoBehaviour
 {
     [SerializeField] private int selectedFrame;
     [SerializeField] private bool isInteracting;
@@ -31,6 +31,10 @@ public class FrameManager : MonoBehaviour
     private void Update()
     {
         menuObject.SetActive(isInteracting);
+        if (m_Frames[0].currentFruitObject.type == FruitObject.Type.Fruit)
+        {
+            m_Frames[1].currentFruitObject = Resources.Load<FruitObject>($"Fruits/Objects/Cut {m_Frames[0].currentFruitObject.name}");
+        }
         for (int i = 0; i < m_Frames.Count; i++)
         {
             if (i == selectedFrame)
@@ -58,12 +62,16 @@ public class FrameManager : MonoBehaviour
 
         if (isInteracting && m_PMap.FindAction($"P{m_InteractingPlayer}X").triggered)
         {
-            if (playerHoldItem.holdingFruitObject == Resources.Load("Fruits/Objects/Air"))
+            if (playerHoldItem.holdingFruitObject.type == FruitObject.Type.Nothing)
             {
                 playerHoldItem.SetFruitObject(m_Frames[selectedFrame].currentFruitObject);
                 m_Frames[selectedFrame].currentFruitObject = Resources.Load<FruitObject>("Fruits/Objects/Air");
+                if (selectedFrame == 1)
+                {
+                    m_Frames[0].currentFruitObject = Resources.Load<FruitObject>("Fruits/Objects/Air");
+                }
             }
-            else if (m_Frames[selectedFrame].currentFruitObject == Resources.Load("Fruits/Objects/Air"))
+            else if (m_Frames[selectedFrame].currentFruitObject.type == FruitObject.Type.Nothing && selectedFrame == 0)
             {
                 m_Frames[selectedFrame].currentFruitObject = playerHoldItem.holdingFruitObject;
                 playerHoldItem.SetFruitObject(Resources.Load<FruitObject>("Fruits/Objects/Air"));

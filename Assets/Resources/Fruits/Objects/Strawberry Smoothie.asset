@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a2e31028b6034746acf4f588db92f83, type: 3}
-  m_Name: Strawberry
+  m_Name: Strawberry Smoothie
   m_EditorClassIdentifier: 
-  fruitName: Strawberry
-  fruitSprite: {fileID: 21300000, guid: d524a721e19c6e24f85df29d64f12c49, type: 3}
+  fruitName: Strawberry Smoothie
+  fruitSprite: {fileID: 21300000, guid: 2cb57e15642d2d2469cb5501d7e9d867, type: 3}
+  type: 2
