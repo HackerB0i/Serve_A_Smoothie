@@ -23,4 +23,9 @@ public class PlayerDesignator : MonoBehaviour
     {
         return new List<InputAction>{_playerHorizontal, _playerVertical};
     }
+
+    public int GetPlayerNumber()
+    {
+        return playerNumber;
+    }
 }

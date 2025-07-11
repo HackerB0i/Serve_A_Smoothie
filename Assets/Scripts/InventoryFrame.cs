@@ -7,15 +7,19 @@ public class InventoryFrame : MonoBehaviour
 {
     [SerializeField] private FruitObject currentFruitObject;
     [SerializeField] private Image holdingImage;
+    [SerializeField] private Image selectedEffect;
+    public bool isSelected = false;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        holdingImage.sprite = currentFruitObject.fruitSprite;
+        if (isSelected)
+        {
+            selectedEffect.enabled = true;
+        }
+        else
+        {
+            selectedEffect.enabled = false; 
+        }
     }
 }
