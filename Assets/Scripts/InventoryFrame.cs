@@ -9,7 +9,8 @@ public class InventoryFrame : MonoBehaviour
     [SerializeField] private Image holdingImage;
     [SerializeField] private Image selectedEffect;
     public bool isSelected = false;
-
+    public bool isPreview = false;
+    
     void Update()
     {
         holdingImage.sprite = currentFruitObject.fruitSprite;
@@ -21,5 +22,19 @@ public class InventoryFrame : MonoBehaviour
         {
             selectedEffect.enabled = false; 
         }
+
+        if (isPreview)
+        {
+            SetItemOpacity(0.7f);
+        }
+        else
+        {
+            SetItemOpacity(1);
+        }
+    }
+
+    public void SetItemOpacity(float opacity)
+    {
+        holdingImage.color = new Color(1, 1, 1, opacity);
     }
 }

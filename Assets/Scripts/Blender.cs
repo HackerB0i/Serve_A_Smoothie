@@ -64,26 +64,38 @@ public class Blender : MonoBehaviour
         {
             if (subMenuOpen)
             {
-                if (playerHoldItem.holdingFruitObject == Resources.Load("Fruits/Objects/Air"))
+                if (playerHoldItem.holdingFruitObject == Resources.Load("Fruits/Objects/Air") && !m_Frames[selectedFrame].isPreview)
                 {
                     playerHoldItem.SetFruitObject(m_Frames[selectedFrame].currentFruitObject);
                     m_Frames[selectedFrame].currentFruitObject = Resources.Load<FruitObject>("Fruits/Objects/Air");
+                    m_Frames[selectedFrame].isPreview = true;
                 }
-                else if (m_Frames[selectedFrame].currentFruitObject == Resources.Load("Fruits/Objects/Air"))
+                else if (m_Frames[selectedFrame].currentFruitObject == playerHoldItem.holdingFruitObject && m_Frames[selectedFrame].isPreview)
                 {
-                    m_Frames[selectedFrame].currentFruitObject = playerHoldItem.holdingFruitObject;
+                    m_Frames[selectedFrame].isPreview = false;
                     playerHoldItem.SetFruitObject(Resources.Load<FruitObject>("Fruits/Objects/Air"));
                 }
             }
             else
             {
-                currentRecipe = Resources.Load<Recipe>($"Recipes/RecipeObjects/{m_Frames[selectedFrame].currentFruitObject}");
+                currentRecipe = Resources.Load<Recipe>($"Recipes/RecipeObjects/{m_Frames[selectedFrame].currentFruitObject.name}");
                 subMenuOpen = true;
             }
         }
 
         if (subMenuOpen)
         {
+            for (int i = 10; i < m_Frames.Count; i++)
+            {
+                if (i - 10 < currentRecipe.recipeList.Count)
+                {
+                    m_Frames[i].currentFruitObject = currentRecipe.recipeList[i-10];
+                }
+                else
+                {
+                    m_Frames[i].currentFruitObject = Resources.Load<FruitObject>("Fruits/Objects/Air");
+                }
+            }
             menuObject.SetActive(false);
             subMenuObject.SetActive(true);
             selectedFrame = Mathf.Clamp(selectedFrame, 10, m_Frames.Count - 1);
@@ -102,7 +114,6 @@ public class Blender : MonoBehaviour
         if (collision.name == "Player" && m_InteractingPlayer == -1)
         {
             isInteracting = true;
-            subMenuOpen = false;
             m_InteractingPlayer = collision.GetComponent<PlayerDesignator>().GetPlayerNumber();
             m_PlayerHorizontal = m_PMap.FindAction($"P{m_InteractingPlayer}H");
             collision.GetComponent<PlayerMovement>().ControlHorizontal(true);
@@ -114,10 +125,30 @@ public class Blender : MonoBehaviour
     {
         if (collision.name == "Player" && m_InteractingPlayer != -1)
         {
-            subMenuOpen = false;
+            if (FramesEmpty(10))
+            {
+                subMenuOpen = false;
+                for (int i = 10; i < m_Frames.Count; i++)
+                {
+                    m_Frames[i].isPreview = true;
+                }
+            }
             isInteracting = false;
             m_InteractingPlayer = -1;
             collision.GetComponent<PlayerMovement>().ControlHorizontal(false);
         }
+    }
+
+    private bool FramesEmpty(int startIndex)
+    {
+        for (int i = startIndex; i < m_Frames.Count; i++)
+        {
+            if (m_Frames[i].currentFruitObject.type != FruitObject.Type.Nothing && !m_Frames[i].isPreview)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

@@ -35,6 +35,10 @@ public class CuttingBoard : MonoBehaviour
         {
             m_Frames[1].currentFruitObject = Resources.Load<FruitObject>($"Fruits/Objects/Cut {m_Frames[0].currentFruitObject.name}");
         }
+        else
+        {
+            m_Frames[1].currentFruitObject = Resources.Load<FruitObject>($"Fruits/Objects/Air");
+        }
         for (int i = 0; i < m_Frames.Count; i++)
         {
             if (i == selectedFrame)
