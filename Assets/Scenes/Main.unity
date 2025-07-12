@@ -1095,6 +1095,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5153627524665224688, guid: 46f9ff91fb01a814081c06eac2c7572b, type: 3}
+      propertyPath: isPreview
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153627524665224688, guid: 46f9ff91fb01a814081c06eac2c7572b, type: 3}
       propertyPath: currentFruitObject
       value: 
       objectReference: {fileID: 11400000, guid: a12eae49953754e49a191af9b0984e38, type: 2}
@@ -2221,6 +2225,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5153627524665224688, guid: 46f9ff91fb01a814081c06eac2c7572b, type: 3}
+      propertyPath: isPreview
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3090,9 +3098,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5153627524665224688, guid: 46f9ff91fb01a814081c06eac2c7572b, type: 3}
+      propertyPath: isPreview
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153627524665224688, guid: 46f9ff91fb01a814081c06eac2c7572b, type: 3}
       propertyPath: currentFruitObject
       value: 
-      objectReference: {fileID: 11400000, guid: 4424e2ad1c2dfcc41839d6c20a001d33, type: 2}
+      objectReference: {fileID: 11400000, guid: a12eae49953754e49a191af9b0984e38, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3189,6 +3201,10 @@ PrefabInstance:
     - target: {fileID: 4983020291667123193, guid: 46f9ff91fb01a814081c06eac2c7572b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153627524665224688, guid: 46f9ff91fb01a814081c06eac2c7572b, type: 3}
+      propertyPath: isPreview
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3729,7 +3745,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5153627524665224688, guid: 46f9ff91fb01a814081c06eac2c7572b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5153627524665224688, guid: 46f9ff91fb01a814081c06eac2c7572b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -4757,6 +4778,10 @@ PrefabInstance:
     - target: {fileID: 4983020291667123193, guid: 46f9ff91fb01a814081c06eac2c7572b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153627524665224688, guid: 46f9ff91fb01a814081c06eac2c7572b, type: 3}
+      propertyPath: isPreview
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5153627524665224688, guid: 46f9ff91fb01a814081c06eac2c7572b, type: 3}
       propertyPath: currentFruitObject
