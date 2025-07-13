@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f29baf89beb6274386029b50e2639b2, type: 3}
-  m_Name: Strawberry Smoothie
+  m_Script: {fileID: 11500000, guid: 5a2e31028b6034746acf4f588db92f83, type: 3}
+  m_Name: Mango Smoothie
   m_EditorClassIdentifier: 
-  recipeList:
-  - {fileID: 11400000, guid: 46c118465d1561844b65246c12cbbd6b, type: 2}
-  resultFruitObject: {fileID: 11400000, guid: 4424e2ad1c2dfcc41839d6c20a001d33, type: 2}
+  fruitName: Mango Smoothie
+  fruitSprite: {fileID: 21300000, guid: 8cf64a2ea44b4de459d83e9ceed9a7dd, type: 3}
+  type: 2

@@ -7,4 +7,6 @@ using UnityEngine;
 public class Recipe : ScriptableObject
 {
     public List<FruitObject> recipeList = new();
+
+    public FruitObject resultFruitObject;
 }

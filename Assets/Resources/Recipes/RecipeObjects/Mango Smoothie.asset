@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f29baf89beb6274386029b50e2639b2, type: 3}
-  m_Name: Strawberry Smoothie
+  m_Name: Mango Smoothie
   m_EditorClassIdentifier: 
   recipeList:
-  - {fileID: 11400000, guid: 46c118465d1561844b65246c12cbbd6b, type: 2}
-  resultFruitObject: {fileID: 11400000, guid: 4424e2ad1c2dfcc41839d6c20a001d33, type: 2}
+  - {fileID: 11400000, guid: 4905f635ee2358f48b62b139c51a2139, type: 2}
+  resultFruitObject: {fileID: 11400000, guid: fbc8d9a9580990b45801b3e10b002d4a, type: 2}

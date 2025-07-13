@@ -69,6 +69,13 @@ public class Blender : MonoBehaviour
                     playerHoldItem.SetFruitObject(m_Frames[selectedFrame].currentFruitObject);
                     m_Frames[selectedFrame].currentFruitObject = Resources.Load<FruitObject>("Fruits/Objects/Air");
                     m_Frames[selectedFrame].isPreview = true;
+                    if (selectedFrame == m_Frames.Count - 1)
+                    {
+                        for (int i = 10; i < m_Frames.Count; i++)
+                        {
+                            m_Frames[i].isPreview = true;
+                        }
+                    }
                 }
                 else if (m_Frames[selectedFrame].currentFruitObject == playerHoldItem.holdingFruitObject && m_Frames[selectedFrame].isPreview)
                 {
@@ -85,7 +92,7 @@ public class Blender : MonoBehaviour
 
         if (subMenuOpen)
         {
-            for (int i = 10; i < m_Frames.Count; i++)
+            for (int i = 10; i < m_Frames.Count-1; i++)
             {
                 if (i - 10 < currentRecipe.recipeList.Count)
                 {
@@ -96,6 +103,9 @@ public class Blender : MonoBehaviour
                     m_Frames[i].currentFruitObject = Resources.Load<FruitObject>("Fruits/Objects/Air");
                 }
             }
+            m_Frames[m_Frames.Count-1].currentFruitObject = currentRecipe.resultFruitObject;
+            m_Frames[m_Frames.Count-1].isPreview = !FramesMatchRecipe(10, currentRecipe);
+            
             menuObject.SetActive(false);
             subMenuObject.SetActive(true);
             selectedFrame = Mathf.Clamp(selectedFrame, 10, m_Frames.Count - 1);
@@ -144,6 +154,19 @@ public class Blender : MonoBehaviour
         for (int i = startIndex; i < m_Frames.Count; i++)
         {
             if (m_Frames[i].currentFruitObject.type != FruitObject.Type.Nothing && !m_Frames[i].isPreview)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool FramesMatchRecipe(int startIndex, Recipe recipe)
+    {
+        for (int i = 0; i < recipe.recipeList.Count; i++)
+        {
+            if (m_Frames[i+startIndex].currentFruitObject.fruitName != recipe.recipeList[i].fruitName | m_Frames[i+startIndex].isPreview)
             {
                 return false;
             }
