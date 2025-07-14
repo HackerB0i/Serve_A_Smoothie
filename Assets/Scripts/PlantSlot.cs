@@ -19,7 +19,7 @@ public class PlantSlot : MonoBehaviour
     private bool touching = false;
     private Collider2D touchingCollider;
     
-    private void Awake()
+    private void Start()
     {
         StartGrowing(GardenManager.Instance.fruits[Random.Range(0,GardenManager.Instance.fruits.Count)]);
     }

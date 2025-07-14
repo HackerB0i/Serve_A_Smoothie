@@ -43,6 +43,10 @@ public class Blender : MonoBehaviour
         if (_isTouching && m_PMap.FindAction($"P{m_InteractingPlayer}M").triggered)
         {
             isInteracting = !isInteracting;
+            if (!isInteracting && FramesEmpty(10))
+            {
+                subMenuOpen = false;
+            }
         }
         for (int i = 0; i < m_Frames.Count; i++)
         {
@@ -107,7 +111,7 @@ public class Blender : MonoBehaviour
             }
         }
 
-        if (subMenuOpen)
+        if (subMenuOpen && isInteracting)
         {
             for (int i = 10; i < m_Frames.Count-1; i++)
             {

@@ -188,6 +188,7 @@ MonoBehaviour:
   isInteracting: 0
   inputActions: {fileID: -944628639613478452, guid: 1b2a58f69e43496429e42f456da99cb1, type: 3}
   menuObject: {fileID: 5051263809998986826}
+  moneyReward: 0
 --- !u!210 &1954214302053661486
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -273,7 +274,7 @@ RectTransform:
   m_GameObject: {fileID: 5051263809998986826}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.015, y: 0.015, z: 0.015}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 397113490101839154}
@@ -281,7 +282,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.7546606, y: 1.7444632}
+  m_AnchoredPosition: {x: -11.6, y: 2.41}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7416415542942732541

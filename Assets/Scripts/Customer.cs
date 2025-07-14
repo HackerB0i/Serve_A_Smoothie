@@ -130,10 +130,10 @@ public class Customer : MonoBehaviour
     public void SetOrder(int difficultyFactor, List<FruitObject> order)
     {
         orderList = order;
-        moneyReward = 1 + difficultyFactor;
+        moneyReward = 5 + difficultyFactor;
         for (int i = 0; i < orderList.Count; i++)
         {
-            moneyReward += Resources.Load<Recipe>($"Recipes/RecipeObjects/{orderList[i].fruitName}").recipeList.Count;
+            moneyReward += Resources.Load<Recipe>($"Recipes/RecipeObjects/{orderList[i].fruitName}").recipeList.Count * 5;
         }
     }
 }

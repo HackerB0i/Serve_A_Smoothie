@@ -16,6 +16,9 @@ public class CuttingBoard : MonoBehaviour
     private float m_ChangeCooldown;
     private int m_InteractingPlayer = -1;
 
+    private bool _inGame = false;
+    private bool _inputWindow = false;
+
     private InputActionMap m_PMap;
     private InputAction m_PlayerHorizontal;
     
@@ -35,7 +38,7 @@ public class CuttingBoard : MonoBehaviour
         {
             m_Frames[1].currentFruitObject = Resources.Load<FruitObject>($"Fruits/Objects/Cut {m_Frames[0].currentFruitObject.name}");
         }
-        else
+        else if (!_inGame)
         {
             m_Frames[1].currentFruitObject = Resources.Load<FruitObject>($"Fruits/Objects/Air");
         }
@@ -61,18 +64,26 @@ public class CuttingBoard : MonoBehaviour
             {
                 selectedFrame = m_Frames.Count - 1;
             }
+
+            if (_inGame)
+            {
+                selectedFrame = Mathf.Clamp(selectedFrame, 1, m_Frames.Count - 1);
+            }
             m_ChangeCooldown = 0.15f;
         }
 
         if (isInteracting && m_PMap.FindAction($"P{m_InteractingPlayer}X").triggered)
         {
-            if (playerHoldItem.holdingFruitObject.type == FruitObject.Type.Nothing)
+            if (playerHoldItem.holdingFruitObject.type == FruitObject.Type.Nothing && !_inGame)
             {
-                playerHoldItem.SetFruitObject(m_Frames[selectedFrame].currentFruitObject);
-                m_Frames[selectedFrame].currentFruitObject = Resources.Load<FruitObject>("Fruits/Objects/Air");
-                if (selectedFrame == 1)
+                if (selectedFrame == 1 && m_Frames[selectedFrame].currentFruitObject.type == FruitObject.Type.Cut)
                 {
-                    m_Frames[0].currentFruitObject = Resources.Load<FruitObject>("Fruits/Objects/Air");
+                    StartCoroutine(Minigame());
+                }
+                else
+                {
+                    playerHoldItem.SetFruitObject(m_Frames[selectedFrame].currentFruitObject);
+                    m_Frames[selectedFrame].currentFruitObject = Resources.Load<FruitObject>("Fruits/Objects/Air");
                 }
             }
             else if (m_Frames[selectedFrame].currentFruitObject.type == FruitObject.Type.Nothing && selectedFrame == 0)
@@ -81,6 +92,16 @@ public class CuttingBoard : MonoBehaviour
                 playerHoldItem.SetFruitObject(Resources.Load<FruitObject>("Fruits/Objects/Air"));
             }
         }
+
+        if (_inputWindow)
+        {
+            if (m_PMap.FindAction($"P{m_InteractingPlayer}X").triggered)
+            {
+                MoneyDisplay.Instance.Money += 2;
+                _inputWindow = false;
+            }
+        }
+        
         m_ChangeCooldown -= Time.deltaTime;
     }
 
@@ -104,5 +125,20 @@ public class CuttingBoard : MonoBehaviour
             m_InteractingPlayer = -1;
             collision.GetComponent<PlayerMovement>().LockMovement(false);
         }
+    }
+
+    private IEnumerator Minigame()
+    {
+        _inGame = true;
+        GetComponent<CuttingMinigame>().StartGame();
+        yield return new WaitForSeconds(0.65f);
+        _inputWindow = true;
+        yield return new WaitForSeconds(0.2f);
+        _inputWindow = false;
+        yield return new WaitForSeconds(0.65f);
+        m_Frames[0].currentFruitObject = Resources.Load<FruitObject>("Fruits/Objects/Air");
+        playerHoldItem.SetFruitObject(m_Frames[selectedFrame].currentFruitObject);
+        m_Frames[selectedFrame].currentFruitObject = Resources.Load<FruitObject>("Fruits/Objects/Air");
+        _inGame = false;
     }
 }
