@@ -13,7 +13,7 @@ public class Customer : MonoBehaviour
     [SerializeField] private GameObject menuObject;
     
     private List<InventoryFrame> m_Frames = new();
-
+    
     private float m_ChangeCooldown;
     private int m_InteractingPlayer = -1;
 
@@ -22,11 +22,18 @@ public class Customer : MonoBehaviour
     
     private PlayerHoldItem playerHoldItem;
 
+    public float moneyReward;
+    
     private void Start()
     {
         m_Frames = GetComponentsInChildren<InventoryFrame>().ToList();
         m_PMap = inputActions.FindActionMap($"Player");
         m_PMap.FindAction($"P1X").Enable();
+        moneyReward = 0;
+        for (int i = 0; i < orderList.Count; i++)
+        {
+            moneyReward += Resources.Load<Recipe>($"Recipes/RecipeObjects/{orderList[i].fruitName}").recipeList.Count;
+        }
     }
 
     private void Update()
@@ -41,6 +48,7 @@ public class Customer : MonoBehaviour
             {
                 m_Frames[i].isSelected = false;
             }
+            selectedFrame = Mathf.Clamp(selectedFrame, 0, orderList.Count - 1);
 
             if (i > orderList.Count - 1)
             {
@@ -79,6 +87,12 @@ public class Customer : MonoBehaviour
                 playerHoldItem.SetFruitObject(Resources.Load<FruitObject>("Fruits/Objects/Air"));
             }
         }
+        
+
+        if (OrderSatisfied())
+        {
+            Destroy(gameObject);
+        }
         m_ChangeCooldown -= Time.deltaTime;
     }
 
@@ -102,5 +116,19 @@ public class Customer : MonoBehaviour
             m_InteractingPlayer = -1;
             collision.GetComponent<PlayerMovement>().ControlHorizontal(false);
         }
+    }
+
+    private bool OrderSatisfied()
+    {
+        for (int i = 0; i < m_Frames.Count; i++)
+        {
+            if (m_Frames[i].gameObject.activeSelf && m_Frames[i].isPreview)
+            {
+                print(i);
+                return false;
+            }
+        }
+
+        return true;
     }
 }
