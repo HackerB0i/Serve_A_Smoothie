@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fruitName: Honey
   fruitSprite: {fileID: 21300000, guid: 0ba4aabefcf9e90439f1af4c48c59101, type: 3}
-  type: 0
+  type: 4

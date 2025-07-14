@@ -10,7 +10,7 @@ public class PlantSlot : MonoBehaviour
     
     public FruitObject _currentFruitObject;
     
-    private Animator _animator;
+    [SerializeField] private Animator _animator;
 
     public bool _doneGrowing = false;
 
@@ -18,7 +18,6 @@ public class PlantSlot : MonoBehaviour
     
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
         StartGrowing(GardenManager.Instance.fruits[Random.Range(0,GardenManager.Instance.fruits.Count)]);
     }
 
@@ -37,7 +36,7 @@ public class PlantSlot : MonoBehaviour
     private IEnumerator Grow()
     {
         _doneGrowing = false;
-        yield return new WaitForSeconds(16f);
+        yield return new WaitForSeconds(17f);
         _doneGrowing = true;
     }
 
@@ -45,13 +44,21 @@ public class PlantSlot : MonoBehaviour
     {
         if (other.name == "Player" && _doneGrowing)
         {
-            playerHoldItem = other.GetComponent<PlayerHoldItem>();
-            if (other.GetComponent<PlayerHoldItem>().holdingFruitObject == Resources.Load("Fruits/Objects/Air"))
-            {
-                _animator.SetBool("grow", false);
-                playerHoldItem.holdingFruitObject = _currentFruitObject;
-                StartGrowing(GardenManager.Instance.fruits[Random.Range(0,GardenManager.Instance.fruits.Count)]);
-            }
+            StartCoroutine(ResetPlot(other));
         }
+    }
+
+    private IEnumerator ResetPlot(Collider2D collider)
+    {
+        playerHoldItem = collider.GetComponent<PlayerHoldItem>();
+        if (collider.GetComponent<PlayerHoldItem>().holdingFruitObject == Resources.Load("Fruits/Objects/Air"))
+        {
+            _animator.SetBool("grow", false);
+            playerHoldItem.holdingFruitObject = _currentFruitObject;
+            yield return new WaitForSeconds(1);
+            StartGrowing(GardenManager.Instance.fruits[Random.Range(0,GardenManager.Instance.fruits.Count)]);
+        }
+
+        yield return null;
     }
 }
