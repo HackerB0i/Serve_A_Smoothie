@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement Instance;
     
     [SerializeField] private float movementSpeed;
     
@@ -16,8 +18,13 @@ public class PlayerMovement : MonoBehaviour
     private InputAction _horizontal;
     private InputAction _vertical;
     
-    private bool lockHorizontal;
-    
+    private bool lockMovement;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -33,16 +40,16 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _velocity = new Vector2(_horizontal.ReadValue<float>(), _vertical.ReadValue<float>());
-        if (lockHorizontal)
+        if (lockMovement)
         {
-            _velocity.x = 0;
+            _velocity = Vector2.zero;
         }
         _velocity.Normalize();
         _rb.velocity = _velocity * movementSpeed;
     }
 
-    public void ControlHorizontal(bool lockH)
+    public void LockMovement(bool val)
     {
-        lockHorizontal = lockH;
+        lockMovement = val;
     }
 }

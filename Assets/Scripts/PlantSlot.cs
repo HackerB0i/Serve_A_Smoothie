@@ -15,6 +15,9 @@ public class PlantSlot : MonoBehaviour
     public bool _doneGrowing = false;
 
     private PlayerHoldItem playerHoldItem;
+
+    private bool touching = false;
+    private Collider2D touchingCollider;
     
     private void Awake()
     {
@@ -31,6 +34,13 @@ public class PlantSlot : MonoBehaviour
     private void Update()
     {
         spriteRenderer.sprite = _currentFruitObject.fruitSprite;
+        if (touching && _doneGrowing)
+        {
+            if (touchingCollider.GetComponent<PlayerHoldItem>().holdingFruitObject.type == FruitObject.Type.Nothing)
+            {
+                StartCoroutine(ResetPlot(touchingCollider));
+            }
+        }
     }
 
     private IEnumerator Grow()
@@ -42,22 +52,28 @@ public class PlantSlot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.name == "Player" && _doneGrowing)
+        if (other.name == "Player")
         {
-            StartCoroutine(ResetPlot(other));
+            touching = true;
+            touchingCollider = other;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.name == "Player")
+        {
+            touching = false;
         }
     }
 
     private IEnumerator ResetPlot(Collider2D collider)
     {
         playerHoldItem = collider.GetComponent<PlayerHoldItem>();
-        if (collider.GetComponent<PlayerHoldItem>().holdingFruitObject == Resources.Load("Fruits/Objects/Air"))
-        {
-            _animator.SetBool("grow", false);
-            playerHoldItem.holdingFruitObject = _currentFruitObject;
-            yield return new WaitForSeconds(1);
-            StartGrowing(GardenManager.Instance.fruits[Random.Range(0,GardenManager.Instance.fruits.Count)]);
-        }
+        _animator.SetBool("grow", false);
+        playerHoldItem.holdingFruitObject = _currentFruitObject;
+        yield return new WaitForSeconds(1);
+        StartGrowing(GardenManager.Instance.fruits[Random.Range(0,GardenManager.Instance.fruits.Count)]);
 
         yield return null;
     }

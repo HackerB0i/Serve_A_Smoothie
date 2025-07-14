@@ -79,7 +79,7 @@ public class FrameManager : MonoBehaviour
             isInteracting = true;
             m_InteractingPlayer = collision.GetComponent<PlayerDesignator>().GetPlayerNumber();
             m_PlayerHorizontal = m_PMap.FindAction($"P{m_InteractingPlayer}H");
-            collision.GetComponent<PlayerMovement>().ControlHorizontal(true);
+            collision.GetComponent<PlayerMovement>().LockMovement(true);
             playerHoldItem = collision.GetComponent<PlayerHoldItem>();
         }
     }
@@ -90,7 +90,7 @@ public class FrameManager : MonoBehaviour
         {
             isInteracting = false;
             m_InteractingPlayer = -1;
-            collision.GetComponent<PlayerMovement>().ControlHorizontal(false);
+            collision.GetComponent<PlayerMovement>().LockMovement(false);
         }
     }
 }
