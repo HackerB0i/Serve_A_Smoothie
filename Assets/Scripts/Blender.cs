@@ -83,7 +83,7 @@ public class Blender : MonoBehaviour
                     playerHoldItem.SetFruitObject(Resources.Load<FruitObject>("Fruits/Objects/Air"));
                 }
             }
-            else
+            else if (m_Frames[selectedFrame].currentFruitObject.type != FruitObject.Type.Nothing)
             {
                 currentRecipe = Resources.Load<Recipe>($"Recipes/RecipeObjects/{m_Frames[selectedFrame].currentFruitObject.name}");
                 subMenuOpen = true;

@@ -2,23 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlantSlot : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
     
-    private FruitObject _currentFruitObject;
+    public FruitObject _currentFruitObject;
     
     private Animator _animator;
 
-    private bool _doneGrowing = false;
+    public bool _doneGrowing = false;
 
     private PlayerHoldItem playerHoldItem;
     
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        StartGrowing(Resources.Load<FruitObject>("Fruits/Objects/Strawberry"));
+        StartGrowing(GardenManager.Instance.fruits[Random.Range(0,GardenManager.Instance.fruits.Count)]);
     }
 
     public void StartGrowing(FruitObject fruitObject)
@@ -36,7 +37,7 @@ public class PlantSlot : MonoBehaviour
     private IEnumerator Grow()
     {
         _doneGrowing = false;
-        yield return new WaitForSeconds(15.9f);
+        yield return new WaitForSeconds(16f);
         _doneGrowing = true;
     }
 
@@ -49,7 +50,7 @@ public class PlantSlot : MonoBehaviour
             {
                 _animator.SetBool("grow", false);
                 playerHoldItem.holdingFruitObject = _currentFruitObject;
-                _currentFruitObject = Resources.Load<FruitObject>("Fruits/Objects/Air");
+                StartGrowing(GardenManager.Instance.fruits[Random.Range(0,GardenManager.Instance.fruits.Count)]);
             }
         }
     }

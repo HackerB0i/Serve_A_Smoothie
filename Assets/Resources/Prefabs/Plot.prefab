@@ -187,6 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 15550312538147540}
+  _currentFruitObject: {fileID: 11400000, guid: a12eae49953754e49a191af9b0984e38, type: 2}
+  _doneGrowing: 0
 --- !u!210 &7591953942405224805
 SortingGroup:
   m_ObjectHideFlags: 0

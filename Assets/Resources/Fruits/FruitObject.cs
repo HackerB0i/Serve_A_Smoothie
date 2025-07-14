@@ -15,6 +15,7 @@ public class FruitObject : ScriptableObject
         Cut,
         Smoothie,
         Tool,
+        Special,
         Nothing
     }
 

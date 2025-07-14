@@ -22,18 +22,13 @@ public class Customer : MonoBehaviour
     
     private PlayerHoldItem playerHoldItem;
 
-    public float moneyReward;
+    public int moneyReward;
     
     private void Start()
     {
         m_Frames = GetComponentsInChildren<InventoryFrame>().ToList();
         m_PMap = inputActions.FindActionMap($"Player");
         m_PMap.FindAction($"P1X").Enable();
-        moneyReward = 0;
-        for (int i = 0; i < orderList.Count; i++)
-        {
-            moneyReward += Resources.Load<Recipe>($"Recipes/RecipeObjects/{orderList[i].fruitName}").recipeList.Count;
-        }
     }
 
     private void Update()
@@ -91,6 +86,7 @@ public class Customer : MonoBehaviour
 
         if (OrderSatisfied())
         {
+            MoneyDisplay.Instance.Money += moneyReward;
             Destroy(gameObject);
         }
         m_ChangeCooldown -= Time.deltaTime;
@@ -124,11 +120,20 @@ public class Customer : MonoBehaviour
         {
             if (m_Frames[i].gameObject.activeSelf && m_Frames[i].isPreview)
             {
-                print(i);
                 return false;
             }
         }
 
         return true;
+    }
+
+    public void SetOrder(int difficultyFactor, List<FruitObject> order)
+    {
+        orderList = order;
+        moneyReward = 1 + difficultyFactor;
+        for (int i = 0; i < orderList.Count; i++)
+        {
+            moneyReward += Resources.Load<Recipe>($"Recipes/RecipeObjects/{orderList[i].fruitName}").recipeList.Count;
+        }
     }
 }
