@@ -15,8 +15,8 @@ public class PlayerDesignator : MonoBehaviour
     {
         var pMap = inputActions.FindActionMap($"Player");
  
-        _playerHorizontal = pMap.FindAction($"P1H");
-        _playerVertical = pMap.FindAction($"P1V");
+        _playerHorizontal = pMap.FindAction($"P{playerNumber}H");
+        _playerVertical = pMap.FindAction($"P{playerNumber}V");
     }
 
     public List<InputAction> GetPlayerInputActions()

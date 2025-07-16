@@ -6,7 +6,8 @@ using UnityEngine;
 public class ResourceSpawner : MonoBehaviour
 {
     [SerializeField] private FruitObject _currentFruitObject;
-
+    [SerializeField] private SpriteRenderer _fruitSprite;
+        
     private bool _doneGrowing = false;
 
     private PlayerHoldItem playerHoldItem;
@@ -24,9 +25,10 @@ public class ResourceSpawner : MonoBehaviour
     private IEnumerator Grow()
     {
         _doneGrowing = false;
-        
+        _fruitSprite.enabled = false;
         yield return new WaitForSeconds(10);
         _doneGrowing = true;
+        _fruitSprite.enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

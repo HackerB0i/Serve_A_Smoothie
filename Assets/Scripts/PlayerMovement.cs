@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         _velocity = new Vector2(_horizontal.ReadValue<float>(), _vertical.ReadValue<float>());
         if (lockMovement)
         {
-            _velocity = Vector2.zero;
+            _velocity *= 0.2f;
         }
         _velocity.Normalize();
         _rb.velocity = _velocity * movementSpeed;

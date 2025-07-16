@@ -38,8 +38,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BGG
+    uniqueID: 2533718057
+    locked: 0
   - name: BG
     uniqueID: 2862670411
+    locked: 0
+  - name: shadows
+    uniqueID: 1746300619
     locked: 0
   - name: Default
     uniqueID: 0

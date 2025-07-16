@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "P2H",
+                    "type": "Value",
+                    "id": "1c0912a1-6c70-4336-9fbf-eb61b4f36ce8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "P1V",
                     "type": "Button",
                     "id": "bb9b5d71-a675-4ebb-beb4-2d3d443a4557",
@@ -24,9 +33,27 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "P2V",
+                    "type": "Button",
+                    "id": "b3be17ee-b24b-4576-925d-f28aa47d7cd1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "P1X",
                     "type": "Button",
                     "id": "3b15410c-57aa-4811-9420-3de94e1e7ae4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "P2X",
+                    "type": "Button",
+                    "id": "6142d9ec-b95f-4f31-a0a7-a2584e6749c8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -128,6 +155,83 @@
                     "processors": "",
                     "groups": "",
                     "action": "P1M",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "H",
+                    "id": "3f73fbe4-f1f4-4c98-82c5-6cd437c6712d",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P2H",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "7b467d9a-e103-4b5c-9745-7868f31a52ec",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KB",
+                    "action": "P2H",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "8ec2ddfe-6b3b-4395-a44a-8c6df646d5f4",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KB",
+                    "action": "P2H",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "V",
+                    "id": "7601d767-c4b0-4076-9594-ae168b846e18",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P2V",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "b113b490-7805-45ab-82aa-20862500eec6",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P2V",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "3c10a5c2-c3e1-4188-a9ee-96453bc1e204",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P2V",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "82d1c041-7ba2-468e-a209-af25635c1eb9",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P2X",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

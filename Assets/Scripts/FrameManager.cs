@@ -26,6 +26,7 @@ public class FrameManager : MonoBehaviour
         m_Frames = GetComponentsInChildren<InventoryFrame>().ToList();
         m_PMap = inputActions.FindActionMap($"Player");
         m_PMap.FindAction($"P1X").Enable();
+        m_PMap.FindAction($"P2X").Enable();
     }
 
     private void Update()

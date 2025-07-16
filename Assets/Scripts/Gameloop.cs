@@ -6,10 +6,16 @@ public class Gameloop : MonoBehaviour
 {
     [SerializeField] private int difficultyFactor;
     [SerializeField] private List<FruitObject> lvl1Smoothies = new();
+    [SerializeField] private List<Transform> spawnPositions;
 
+    private void Start()
+    {
+        SpawnCustomer();
+    }
+    
     private void SpawnCustomer()
     {
-        var customer = Instantiate(Resources.Load<Transform>("Prefabs/Customer"), transform);
+        var customer = Instantiate(Resources.Load<Transform>("Prefabs/Customer"), spawnPositions[0]);
         List<FruitObject> order = new();
         for (int i = 0; i < difficultyFactor + 1; i++)
         {
@@ -20,9 +26,6 @@ public class Gameloop : MonoBehaviour
 
     private void Update()
     {
-        if (transform.childCount < 1)
-        {
-            SpawnCustomer();
-        }
+        
     }
 }
